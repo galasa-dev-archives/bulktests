@@ -1,6 +1,11 @@
 package bulktest.maven.plugin;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
@@ -55,8 +60,29 @@ public class GenerateBuildTestClasses extends AbstractMojo {
         
         
         this.project.addCompileSourceRoot(generatedDirectory.getAbsolutePath());
-
-
+        
+        
+        ArrayList<String> testNames = new ArrayList<>(classNameManagement.getClassNames());
+        
+        StringBuilder sb = new StringBuilder();
+        for(String testName : testNames) {
+            sb.append("'");
+            sb.append(this.project.getName());
+            sb.append("/");
+            sb.append(testName);
+            sb.append("',\n");
+        }
+        
+        Path filelist = Paths.get(buildDirectory.toURI()).resolve("file.list");
+        
+        try {
+            Files.write(filelist, sb.toString().getBytes(StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            throw new MojoExecutionException("Unable to write out file list artifact", e);
+        }
+        
+        this.projectHelper.attachArtifact(project, "text", "testlist", filelist.toFile());
+        
     }
 
 }

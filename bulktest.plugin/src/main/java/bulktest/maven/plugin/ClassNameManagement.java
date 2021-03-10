@@ -3,6 +3,7 @@ package bulktest.maven.plugin;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class ClassNameManagement {
 
@@ -103,6 +104,10 @@ public class ClassNameManagement {
         }
         
         return tags.toArray(new String[tags.size()]);
+    }
+
+    public Set<String> getClassNames() {
+        return this.usedClassNames;
     }
 
 }
