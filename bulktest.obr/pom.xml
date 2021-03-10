@@ -7,10 +7,10 @@
 	<artifactId>bulktest.obr</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>galasa-obr</packaging>
-	
+
 	<properties>
-        <galasa.test.stream>bulktests</galasa.test.stream>
-    </properties>
+		<galasa.test.stream>bulktests</galasa.test.stream>
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -32,4 +32,15 @@
 		</plugins>
 	</build>
 
+
+	<distributionManagement>
+		<repository>
+			<id>galasa.release.repo</id>
+			<url>${galasa.release.repo}</url>
+		</repository>
+		<snapshotRepository>
+			<id>galasa.snapshot.repo</id>
+			<url>${galasa.snapshot.repo}</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
