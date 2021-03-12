@@ -9,7 +9,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import bulktest.BulkTestManagerException;
-import dev.galasa.framework.spi.ConfigurationPropertyStoreException;
 import dev.galasa.framework.spi.cps.CpsProperties;
 
 public class TestEnvironment extends CpsProperties {
@@ -20,8 +19,8 @@ public class TestEnvironment extends CpsProperties {
 
     public static String get() {
             try {
-                return getStringNulled(BulkTestPropertiesSingleton.cps(), "test", "environment");
-            } catch (BulkTestManagerException | ConfigurationPropertyStoreException e) {
+                return getStringWithDefault(BulkTestPropertiesSingleton.cps(), DEFAULT_TEST_ENVIRONMENT, "test", "environment");
+            } catch (BulkTestManagerException e) {
                 logger.error("problem retrieving the test environment, defaulting to " + DEFAULT_TEST_ENVIRONMENT, e);
                 return DEFAULT_TEST_ENVIRONMENT;
             }
